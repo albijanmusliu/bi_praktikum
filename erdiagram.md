@@ -66,7 +66,9 @@ erDiagram
         string_array primaryProfession 
         array knownForTitles(array_of_tconsts)
     }
-    
 
 
+```
+```python
+print("test")
 ```
