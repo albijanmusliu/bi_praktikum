@@ -5,7 +5,7 @@ erDiagram
     TITLE_BASICS ||--o{ TITLE_CREW : hat
     TITLE_BASICS ||--o{ TITLE_EPISODE : enthaelt
     TITLE_BASICS ||--o{ TITLE_PRINCIPALS : hat
-    TITLE_BASICS ||--|| TITLE_RATINGS : hat
+    TITLE_BASICS ||--o{ TITLE_RATINGS : hat
     TITLE_PRINCIPALS ||--|| NAME_BASICS : beschreibt
     
     
