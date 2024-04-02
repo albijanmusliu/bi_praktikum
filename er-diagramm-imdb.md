@@ -10,7 +10,7 @@ erDiagram
     
     
 TITLE_AKAS {
-        string titleId PK "test"
+        string titleId PK
         int ordering FK
         string title 
         string region
