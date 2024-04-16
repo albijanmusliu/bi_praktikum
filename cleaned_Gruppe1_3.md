@@ -106,3 +106,24 @@ WHERE
     (averageRating < 10 OR averageRating > 0 OR averageRating IS NULL)
     AND (numVotes > 0 OR numVotes IS NULL);
 ```
+# Unveränderte Tabellen
+* title_crew
+```sql
+INSERT INTO cleaned.title_crew (tconst, directors, writers)
+SELECT tconst, directors, writers
+FROM extract.title_crew
+```
+* title_episode
+```sql
+INSERT INTO cleaned.title_episode (tconst, parentTconst, seasonNumber, episodeNumber)
+SELECT tconst, parentTconst, seasonNumber, episodeNumber
+FROM extract.title_episode
+```
+* title_principals
+```sql
+INSERT INTO cleaned.title_principals (tconst, ordering, nconst,category, job, characters)
+SELECT tconst, ordering, nconst,category, job, characters
+FROM extract.title_principals
+```
+  
+
