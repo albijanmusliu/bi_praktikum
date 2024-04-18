@@ -24,6 +24,16 @@ WHERE (birthYear <= deathYear OR deathYear IS NULL)
    AND (deathYear <= YEAR(CURRENT_DATE()))
    AND (birthYear >= 0 OR birthYear IS NULL)
    AND (primaryName LIKE '% %');
+
+--Lösung_neu:
+INSERT INTO cleaned.name_basics (nconst, primaryName, birthYear, deathYear, primaryProfession, knownForTitles)
+SELECT nconst, primaryName, birthYear, deathYear, primaryProfession, knownForTitles
+FROM extract.name_basics
+WHERE ((birthYear <= deathYear OR birthYear IS NULL OR deathYear IS NULL)
+   AND (deathYear <= YEAR(CURRENT_DATE()) OR deathYear IS NULL)
+   AND (birthYear >= 0 OR birthYear IS NULL)
+   AND (primaryName LIKE '% %'));
+
 ```
 
 ## title_akas_inconsistent_region
