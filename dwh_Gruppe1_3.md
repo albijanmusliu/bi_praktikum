@@ -61,25 +61,13 @@ class title_ratings {
 
 Schema core
 ```mermaid
-
 classDiagram
 direction BT
-class akas_attributes {
-   varchar(9) titleId
-   int(11) ordering
-   varchar(20) type
-   int(11) akas_attribute_Id
-}
-class akas_types {
-   varchar(9) titleId
-   int(11) ordering
-   varchar(20) type
-   int(11) akas_type_Id
-}
+
 class knownfortitles {
    varchar(9) nconst
-   int(11) kntID
    varchar(9) tconst
+   int(11) kftID
 }
 class name_basics {
    varchar(9) nconst
@@ -90,8 +78,8 @@ class name_basics {
 }
 class primaryprofession {
    varchar(9) nconst
-   int(11) professionID
    varchar(25) profession
+   int(11) professionID
 }
 class title_akas {
    varchar(9) titleID
@@ -99,26 +87,30 @@ class title_akas {
    varchar(30) title
    varchar(2) region
    varchar(10) language
+   varchar(20) type
+   varchar(50) attribute
    tinyint(1) isOrginalTitle
 }
 class title_basics {
    varchar(9) tconst
    varchar(10) titleType
    varchar(30) primaryTitle
-   varchar(30) orginalTitle
+   varchar(30) originalTitle
    tinyint(1) isAdult
    int(4) startYear
    int(4) endYear
    int(11) runtimeMinutes
-}
-class title_crew {
-   varchar(9) tconst
 }
 class title_directors {
    varchar(9) director
    varchar(9) tconst
    int(11) titleDirectorsId
 }
+```
+```mermaid
+classDiagram
+direction BT
+
 class title_episode {
    varchar(9) tconst
    varchar(9) parentTconst
@@ -127,13 +119,13 @@ class title_episode {
 }
 class title_genres {
    varchar(9) tconst
-   int(11) titleGenreId
    varchar(20) genre
+   int(11) titleGenreId
 }
 class title_principals {
    varchar(9) tconst
    int(11) ordering
-   varchar(9) ncont
+   varchar(9) nconst
    varchar(20) category
    varchar(40) job
    varchar(30) characters
