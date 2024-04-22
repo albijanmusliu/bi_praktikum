@@ -1,4 +1,4 @@
-<h1>Schema extract
+<h1>Schema raw
 
 ```mermaid
 classDiagram
@@ -6,20 +6,20 @@ direction BT
 class name_basics {
    text nconst
    text primaryName
-   int(11) birthYear
+   text birthYear
    text deathYear
    text primaryProfession
    text knownForTitles
 }
 class title_akas {
    text titleId
-   int(11) ordering
+   text ordering
    text title
    text region
    text language
    text types
    text attributes
-   int(11) isOriginalTitle
+   text isOriginalTitle
 }
 class title_basics {
    text tconst
@@ -29,7 +29,7 @@ class title_basics {
    int(11) isAdult
    int(11) startYear
    text endYear
-   int(11) runtimeMinutes
+   text runtimeMinutes
    text genres
 }
 class title_crew {
