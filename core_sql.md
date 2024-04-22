@@ -205,7 +205,7 @@ WITH RECURSIVE pPSplit AS (
     SELECT
         nconst,
         TRIM(SUBSTRING_INDEX(primaryProfession, ',', 1)) AS profession,
-        SUBSTRING(primaryProfession, LENGTH(SUBSTRING_INDEX(knownForTitles, ',', 1)) + 2) AS remaining_pP
+        SUBSTRING(primaryProfession, LENGTH(SUBSTRING_INDEX(primaryProfession, ',', 1)) + 2) AS remaining_pP
     FROM raw.name_basics
 
     UNION ALL
