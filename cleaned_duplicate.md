@@ -1,30 +1,3 @@
-name_basic_duplicate_profession
-name_basics_duplicate_name_different_id
-
-DELETE FROM name_basic 
-WHERE EXISTS (
-    SELECT 1 
-    FROM name_basic AS nb2
-    WHERE 
-        name_basic.primaryName = nb2.primaryName 
-        AND (
-            name_basic.primaryProfession = nb2.primaryProfession 
-            OR (name_basic.primaryProfession IS NULL AND nb2.primaryProfession IS NULL)
-        )
-        AND name_basic.nconst > nb2.nconst
-)
-OR EXISTS (
-    SELECT 1 
-    FROM (
-        SELECT primaryName, COUNT(*) as cnt
-        FROM name_basic
-        GROUP BY primaryName
-        HAVING cnt > 1
-    ) AS dup_names
-    WHERE name_basic.primaryName = dup_names.primaryName
-);
-
-
 # Lösung name_basic_duplicate_profession
 ```sql
 DELETE FROM name_basic 
@@ -72,7 +45,6 @@ WHERE EXISTS (
 
 # Lösung title_crew_duplicate_directors
 ```sql
--- Löschen von Duplikaten im Feld directors basierend auf tconst  //NOCH NICHT AUSGEFUEHRT
 DELETE FROM cleaned.title_crew
 WHERE EXISTS (
     SELECT 1
@@ -92,7 +64,6 @@ WHERE EXISTS (
 ```
 # Lösung title_principals_duplicate_row
 ```sql
--- Löschen von Datensätzen basierend auf doppeltem tconst und ordering
 DELETE FROM cleaned.title_principals
 WHERE (tconst, ordering) IN (
     SELECT tconst, ordering
@@ -102,3 +73,5 @@ WHERE (tconst, ordering) IN (
 );
 ```
 
+
+TODO: HIER DIE INSERTS IN unified 
