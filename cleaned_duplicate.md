@@ -1,4 +1,5 @@
-# Lösung name_basic_duplicate_profession
+# Entfernen der Duplikate
+## Lösung name_basic_duplicate_profession
 ```sql
 DELETE FROM name_basic 
 WHERE EXISTS (
@@ -14,7 +15,7 @@ WHERE EXISTS (
 );
 ```
 
-# Lösung name_basics_duplicate_name_different_id:
+## Lösung name_basics_duplicate_name_different_id:
 ```sql
 DELETE FROM name_basic
 WHERE EXISTS (
@@ -30,7 +31,7 @@ WHERE EXISTS (
 );
 ```
 
-# Lösung title_basics_duplicate_originaltitle_different_id
+## Lösung title_basics_duplicate_originaltitle_different_id
 ```sql
 DELETE FROM title_basics 
 WHERE EXISTS (
@@ -43,7 +44,7 @@ WHERE EXISTS (
 );
 ```
 
-# Lösung title_crew_duplicate_directors
+## Lösung title_crew_duplicate_directors
 ```sql
 DELETE FROM cleaned.title_crew
 WHERE EXISTS (
@@ -62,7 +63,7 @@ WHERE EXISTS (
     AND ',' || cleaned.title_crew.directors || ',' LIKE '%,' || dupes.director || ',%'
 );
 ```
-# Lösung title_principals_duplicate_row
+## Lösung title_principals_duplicate_row
 ```sql
 DELETE FROM cleaned.title_principals
 WHERE (tconst, ordering) IN (
