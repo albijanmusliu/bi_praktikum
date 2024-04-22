@@ -25,8 +25,40 @@ OR EXISTS (
 );
 
 
-title_basics_duplicate_originaltitle_different_id
+# Lösung name_basic_duplicate_profession
+```sql
+DELETE FROM name_basic 
+WHERE EXISTS (
+    SELECT 1 
+    FROM name_basic AS nb2
+    WHERE 
+        name_basic.primaryName = nb2.primaryName 
+        AND (
+            name_basic.primaryProfession = nb2.primaryProfession 
+            OR (name_basic.primaryProfession IS NULL AND nb2.primaryProfession IS NULL)
+        )
+        AND name_basic.nconst > nb2.nconst
+);
+```
 
+# Lösung name_basics_duplicate_name_different_id:
+```sql
+DELETE FROM name_basic
+WHERE EXISTS (
+    SELECT 1 
+    FROM (
+        SELECT primaryName, MIN(nconst) as min_nconst
+        FROM name_basic
+        GROUP BY primaryName
+        HAVING COUNT(*) > 1
+    ) AS dup_names
+    WHERE name_basic.primaryName = dup_names.primaryName
+    AND name_basic.nconst > dup_names.min_nconst
+);
+```
+
+# Lösung title_basics_duplicate_originaltitle_different_id
+```sql
 DELETE FROM title_basics 
 WHERE EXISTS (
     SELECT 1 
@@ -36,9 +68,10 @@ WHERE EXISTS (
         AND title_basics.tconst <> tb2.tconst
         AND title_basics.titleType = tb2.titleType
 );
+```
 
-
-title_crew_duplicate_directors
+# Lösung title_crew_duplicate_directors
+```sql
 -- Löschen von Duplikaten im Feld directors basierend auf tconst  //NOCH NICHT AUSGEFUEHRT
 DELETE FROM cleaned.title_crew
 WHERE EXISTS (
@@ -56,9 +89,9 @@ WHERE EXISTS (
     WHERE cleaned.title_crew.tconst = dupes.tconst
     AND ',' || cleaned.title_crew.directors || ',' LIKE '%,' || dupes.director || ',%'
 );
-
-
-
+```
+# Lösung title_principals_duplicate_row
+```sql
 -- Löschen von Datensätzen basierend auf doppeltem tconst und ordering
 DELETE FROM cleaned.title_principals
 WHERE (tconst, ordering) IN (
@@ -67,5 +100,5 @@ WHERE (tconst, ordering) IN (
     GROUP BY tconst, ordering
     HAVING COUNT(*) > 1
 );
-
+```
 
