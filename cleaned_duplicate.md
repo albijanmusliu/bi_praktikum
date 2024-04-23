@@ -1,4 +1,4 @@
-# Entfernen der Duplikate
+# Entfernen der Duplikate im Schema cleaned
 ## Lösung name_basic_duplicate_profession
 ```sql
 DELETE FROM name_basic 
@@ -74,5 +74,40 @@ WHERE (tconst, ordering) IN (
 );
 ```
 
+# INSERT INTO unified FROM cleaned
+```sql
+INSERT INTO unified.name_basics(nconst, primaryName, birthYear, deathYear, primaryProfession, knownForTitles)
+SELECT nconst, primaryName, birthYear, deathYear, primaryProfession, knownForTitles
+FROM cleaned.name_basics
+```
+```sql
+INSERT INTO unified.title_basics(tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres) 
+SELECT tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres
+FROM cleaned.title_basics
+```
+```sql
+INSERT INTO unified.title_akas (titleId, ordering, title, region, language, types, attributes, isOriginalTitle) 
+SELECT titleId, ordering, title, region, language, types, attributes, isOriginalTitle
+FROM cleaned.title_akas
+```
+```sql
+INSERT INTO unified.title_crew(tconst, directors, writers) 
+SELECT tconst, directors, writers
+FROM cleaned.title_crew
+```
+```sql
+INSERT INTO unified.title_episode(tconst, parentTconst, seasonNumber, episodeNumber)
+SELECT tconst, parentTconst, seasonNumber, episodeNumber
+FROM cleaned.title_episode
+```
+```sql
+INSERT INTO unified.title_principals(tconst, ordering, nconst, category, job, characters)
+SELECT tconst, ordering, nconst, category, job, characters
+FROM cleaned.title_principals
+```
+```sql
+INSERT INTO unified.title_ratings(tconst, averageRating, numVotes)
+SELECT tconst, averageRating, numVotes
+FROM cleaned.title_ratings
+```
 
-TODO: HIER DIE INSERTS IN unified 
