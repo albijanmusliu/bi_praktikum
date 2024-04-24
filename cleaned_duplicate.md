@@ -1,33 +1,33 @@
 # Entfernen der Duplikate im Schema cleaned
-## Lösung name_basic_duplicate_profession
+## Lösung name_basics_duplicate_profession
 ```sql
-DELETE FROM name_basic 
+DELETE FROM name_basics 
 WHERE EXISTS (
     SELECT 1 
-    FROM name_basic AS nb2
+    FROM name_basics AS nb2
     WHERE 
-        name_basic.primaryName = nb2.primaryName 
+        name_basics.primaryName = nb2.primaryName 
         AND (
-            name_basic.primaryProfession = nb2.primaryProfession 
-            OR (name_basic.primaryProfession IS NULL AND nb2.primaryProfession IS NULL)
+            name_basics.primaryProfession = nb2.primaryProfession 
+            OR (name_basics.primaryProfession IS NULL AND nb2.primaryProfession IS NULL)
         )
-        AND name_basic.nconst > nb2.nconst
+        AND name_basics.nconst > nb2.nconst
 );
 ```
 
 ## Lösung name_basics_duplicate_name_different_id:
 ```sql
-DELETE FROM name_basic
+DELETE FROM name_basics
 WHERE EXISTS (
     SELECT 1 
     FROM (
         SELECT primaryName, MIN(nconst) as min_nconst
-        FROM name_basic
+        FROM name_basics
         GROUP BY primaryName
         HAVING COUNT(*) > 1
     ) AS dup_names
-    WHERE name_basic.primaryName = dup_names.primaryName
-    AND name_basic.nconst > dup_names.min_nconst
+    WHERE name_basics.primaryName = dup_names.primaryName
+    AND name_basics.nconst > dup_names.min_nconst
 );
 ```
 
